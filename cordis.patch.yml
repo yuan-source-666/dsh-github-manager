@@ -10,7 +10,7 @@
       name: dsh-github-manager
       config:
         # Master switch mirrored by the settings card; flip it there to hide
-        # or restore all twenty tools without a restart.
+        # or restore all twenty-seven tools without a restart.
         enabled: true
         baseUrl: 'https://api.github.com'
         webUrl: 'https://github.com'
