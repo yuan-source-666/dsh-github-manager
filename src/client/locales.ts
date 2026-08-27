@@ -6,14 +6,14 @@
 
 export const zh = {
   title: 'GitHub 仓库管理',
-  description: 'AI 自动管理通道：仓库、Issue、PR、文件、标签与搜索。开关即时增减工具。',
+  description: 'AI 自动管理通道：仓库、Issue、PR、文件、标签、话题/标签页、发布与搜索。开关即时增减工具。',
   enabledLabel: '启用 GitHub 通道',
   enabledHint: '关闭时，全部 GitHub 工具从智能体表面注销；开启即恢复，无需重启。',
   tokenLabel: '访问令牌（Token）',
   tokenHint: '细粒度或个人经典令牌，仅写入不回显；留空则读取环境变量 GH_TOKEN / GITHUB_TOKEN。',
   tokenPlaceholder: '输入新令牌以保存（不显示已存值）',
   tokenLink: '打开令牌页面 ↗',
-  tokenGuide: '创建流程：GitHub → Settings → Developer settings → Personal access tokens → Generate new token；fine-grained 按需勾选 Contents / Issues / Pull requests（建仓库另需 Administration）。',
+  tokenGuide: '创建流程：GitHub → Settings → Developer settings → Personal access tokens → Generate new token；fine-grained 按需勾选 Contents / Issues / Pull requests / Topics（建仓库另需 Administration）。',
   baseUrlLabel: 'API 根地址',
   baseUrlHint: 'GitHub Enterprise 部署时改写，例如 https://ghe.example.com/api/v3。',
   webUrlLabel: '站点根地址',
@@ -37,14 +37,14 @@ export const zh = {
 
 export const en = {
   title: 'GitHub Manager',
-  description: 'AI auto-management channel: repos, issues, PRs, files, labels, search. The switch adds or drops the tools live.',
+  description: 'AI auto-management channel: repos, issues, PRs, files, labels, topics/tags, releases, search. The switch adds or drops the tools live.',
   enabledLabel: 'Enable GitHub channel',
   enabledHint: 'When off, every GitHub tool is unregistered from the agent surface; on restores them without a restart.',
   tokenLabel: 'Access token',
   tokenHint: 'Fine-grained or classic PAT. Write-only: the stored value is never echoed. When empty, GH_TOKEN / GITHUB_TOKEN is read from the environment.',
   tokenPlaceholder: 'Type a new token to save (existing value is not shown)',
   tokenLink: 'Open token page ↗',
-  tokenGuide: 'Create one: GitHub → Settings → Developer settings → Personal access tokens → Generate new token; for fine-grained grant Contents / Issues / Pull requests (plus Administration to create repos).',
+  tokenGuide: 'Create one: GitHub → Settings → Developer settings → Personal access tokens → Generate new token; for fine-grained grant Contents / Issues / Pull requests / Topics (plus Administration to create repos).',
   baseUrlLabel: 'API root',
   baseUrlHint: 'Point at GitHub Enterprise Server, e.g. https://ghe.example.com/api/v3.',
   webUrlLabel: 'Web root',
