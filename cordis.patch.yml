@@ -1,0 +1,19 @@
+# dsh-github-manager bundle patch: inserts the GitHub repository AI
+# auto-management channel into the composition. Configuration lives in the
+# plugin's own settings namespace (dsh-github-manager), which the Web settings
+# card edits at runtime - the master switch registers/unregisters the tools
+# live. Do NOT put the token in a committed file: fill it on the card
+# (write-only), or via the GH_TOKEN / GITHUB_TOKEN environment variable, or
+# in a private patch layer.
+- insert:
+    - id: dsh-github-manager
+      name: dsh-github-manager
+      config:
+        # Master switch mirrored by the settings card; flip it there to hide
+        # or restore all twenty tools without a restart.
+        enabled: true
+        baseUrl: 'https://api.github.com'
+        webUrl: 'https://github.com'
+        timeoutMs: 30000
+        # Preview mode: mutating tools describe actions without writing.
+        dryRun: false
