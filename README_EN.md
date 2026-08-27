@@ -2,7 +2,7 @@
 
 [中文](README.md) | **English**
 
-A [DeepSeek Harness](https://github.com/deepseek-harness/deepseek-harness) plugin that gives AI agents a **GitHub repository auto-management channel**. It registers a suite of tools so an agent can manage repositories, issues, pull requests, branches, files, labels, and search through the GitHub REST API.
+A [DeepSeek Harness](https://github.com/deepseek-harness/deepseek-harness) plugin that gives AI agents a **GitHub repository auto-management channel**. It registers a suite of tools so an agent can manage repositories, issues, pull requests, branches, files, labels, topics, tags, releases, and search through the GitHub REST API.
 
 > Distributed per the **DSH community plugin spec**: bundle (`dsh.bundle.patch`) + Web settings card (`dsh.client`). The repository is tagged with the `dsh-plugin` topic so the community can find it.
 
@@ -28,6 +28,13 @@ A [DeepSeek Harness](https://github.com/deepseek-harness/deepseek-harness) plugi
 | `github_delete_file` | Files | Delete a file |
 | `github_list_labels` | Labels | List repository labels |
 | `github_create_label` | Labels | Create a label |
+| `github_get_topics` | Topics | Get the repository topic list |
+| `github_update_topics` | Topics | Replace all repository topics in one write |
+| `github_list_tags` | Tags | List git tags with their commit SHAs |
+| `github_list_releases` | Releases | List releases, newest first |
+| `github_get_latest_release` | Releases | Get the latest published release |
+| `github_create_release` | Releases | Create a release (creates the tag when missing) |
+| `github_update_release` | Releases | Update a release (title / notes / draft / prerelease) |
 | `github_search_code` | Search | Code search across GitHub |
 | `github_search_issues` | Search | Search issues and pull requests |
 
@@ -65,7 +72,7 @@ dsh --profile demo
 
 After installing, open http://127.0.0.1:3080 -> **Settings -> Plugins -> Configurable** and you will find the "GitHub repository management" card:
 
-- **Master switch**: turning it off **instantly unregisters** all 20 GitHub tools from the model's tool surface; turning it back on restores them — **no restart**.
+- **Master switch**: turning it off **instantly unregisters** all 27 GitHub tools from the model's tool surface; turning it back on restores them — **no restart**.
 - **Access token**: a write-only password field; the stored value never travels back over the wire and never appears in read results. Leave it empty to fall back to the `GH_TOKEN` / `GITHUB_TOKEN` environment variables.
 - API / web roots, request timeout, dry-run: edit and save per field; "overridden" markers show which fields live in your user layer, and "reset" makes a field inherit the bundle layer again.
 
@@ -96,7 +103,7 @@ CLI or headless setups can override defaults directly in the profile's `cordis.p
 
 | Field | Default | Description |
 | --- | --- | --- |
-| `enabled` | `true` | Master switch; off unregisters all 20 tools from the model surface |
+| `enabled` | `true` | Master switch; off unregisters all 27 tools from the model surface |
 | `token` | (none) | Personal access token; settings-card value wins, empty reads `GH_TOKEN` / `GITHUB_TOKEN` |
 | `baseUrl` | `https://api.github.com` | REST API root (change for GitHub Enterprise) |
 | `webUrl` | `https://github.com` | Web root for human-facing links |
@@ -113,6 +120,8 @@ For a fine-grained token, grant as needed:
 - PRs: `Pull requests: write` (`github_create_pull`, `github_merge_pull`)
 - Files: `Contents: write` (`github_write_file`, `github_delete_file`)
 - Labels: `Issues: write`, or `Metadata: read` + repo admin (`github_create_label`)
+- Topics: `Topics: write` (`github_update_topics`; reading needs only `Metadata: read`)
+- Releases: `Contents: write` (`github_create_release`, `github_update_release`; listing tags/releases needs only `Metadata: read`)
 
 ## Development
 
