@@ -14,8 +14,21 @@ assert.equal(plugin.name, 'dsh-github-manager')
 assert.deepEqual(plugin.inject, ['tools'])
 assert.ok(plugin.Config && ['function', 'object'].includes(typeof plugin.Config), 'Config schema present (schemastery schemas are callable)')
 const registered = []
-const ctx = { logger: () => ({ info: () => {}, debug: () => {}, warn: () => {}, error: () => {} }), tools: { register: (t) => registered.push(t) } }
-plugin.apply(ctx, { token: 'probe', baseUrl: 'https://api.github.com', webUrl: 'https://github.com', timeoutMs: 5000, dryRun: false })
-assert.equal(registered.length, 20, '20 tools registered, got ' + registered.length)
+// Minimal cordis surface: the installed plugin injects ['tools'] and binds
+// its settings namespace through ctx.inject(['settings']) - no provider here,
+// so the composition-layer config must carry the registration (same no-
+// settings path the smoke test asserts).
+const ctx = {
+  logger: () => ({ info: () => {}, debug: () => {}, warn: () => {}, error: () => {} }),
+  tools: { register: (t) => registered.push(t) },
+  effect: (fn) => fn(),
+  fiber: { state: 2 },
+  inject: (deps, cb) => {
+    if (deps.includes('settings')) return undefined // provider absent: skip
+    return cb(ctx)
+  },
+}
+plugin.apply(ctx, { enabled: true, token: 'probe', baseUrl: 'https://api.github.com', webUrl: 'https://github.com', timeoutMs: 5000, dryRun: false })
+assert.equal(registered.length, 27, '27 tools registered, got ' + registered.length)
 for (const t of registered) assert.equal(typeof t.execute, 'function', t.name + ' has execute')
 console.log('installed-copy check: OK (' + registered.length + ' tools, deps resolved from profile node_modules)')
