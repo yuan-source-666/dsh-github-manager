@@ -1,7 +1,7 @@
 {
   "name": "dsh-github-manager",
-  "version": "1.0.1",
-  "description": "AI auto-management channel for GitHub repositories - a DeepSeek Harness community plugin (bundle) that lets an agent manage repos, issues, pull requests, branches, files, labels, and search through the GitHub REST API, with a Web settings card and a live master switch.",
+  "version": "1.1.0",
+  "description": "AI auto-management channel for GitHub repositories - a DeepSeek Harness community plugin (bundle) that lets an agent manage repos, issues, pull requests, branches, files, labels, topics, tags, releases, and search through the GitHub REST API, with a Web settings card and a live master switch.",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
