@@ -1,0 +1,71 @@
+{
+  "name": "dsh-github-manager",
+  "version": "1.0.0",
+  "description": "AI auto-management channel for GitHub repositories - a DeepSeek Harness community plugin (bundle) that lets an agent manage repos, issues, pull requests, branches, files, labels, and search through the GitHub REST API, with a Web settings card and a live master switch.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-settings-plugins"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/build-client.mjs",
+    "prepare": "tsc -p tsconfig.json && node scripts/build-client.mjs",
+    "typecheck:client": "tsc -p tsconfig.client.json",
+    "test": "node tests/smoke-test.mjs && node tests/client-smoke.mjs"
+  },
+  "license": "MIT",
+  "keywords": [
+    "dsh-plugin",
+    "dsh-bundle",
+    "deepseek-harness",
+    "github",
+    "github-automation",
+    "agent",
+    "settings-card"
+  ],
+  "author": "yuan-source-666",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuan-source-666/dsh-github-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yuan-source-666/dsh-github-manager/issues"
+  },
+  "homepage": "https://github.com/yuan-source-666/dsh-github-manager#readme",
+  "dependencies": {},
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=0.1.0",
+    "@deepseek-ai/dsh-settings": ">=0.1.0",
+    "@deepseek-ai/dsh-tools": ">=0.1.0",
+    "@deepseek-ai/schemastery": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}
