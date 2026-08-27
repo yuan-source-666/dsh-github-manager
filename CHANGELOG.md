@@ -2,6 +2,11 @@
 
 本项目遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与语义化版本。
 
+## [1.0.1] - 2026-08-27
+
+### Fixed
+- npm `files` 白名单补入 `README_EN.md`：安装副本内的中英 README 互链不再是死链。
+
 ## [1.0.0] - 2026-08-27
 
 ### Added
