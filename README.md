@@ -2,7 +2,7 @@
 
 **中文** | [English](README_EN.md)
 
-一个 [DeepSeek Harness](https://github.com/deepseek-harness/deepseek-harness) 插件，为 AI agent 提供 **GitHub 仓库自动管理通道**。它注册一组工具，让 agent 通过 GitHub REST API 自动管理仓库、Issue、Pull Request、分支、文件、标签和搜索。
+一个 [DeepSeek Harness](https://github.com/deepseek-harness/deepseek-harness) 插件，为 AI agent 提供 **GitHub 仓库自动管理通道**。它注册一组工具，让 agent 通过 GitHub REST API 自动管理仓库、Issue、Pull Request、分支、文件、标签、话题（topics）、Git 标签（tags）、发布（Releases）和搜索。
 
 > 本插件按 **DSH 社区插件规范** 分发：bundle（`dsh.bundle.patch`）+ Web 设置卡片（`dsh.client`），仓库已打上 `dsh-plugin` topic 供社区发现。
 
@@ -28,6 +28,13 @@
 | `github_delete_file` | 文件 | 删除文件 |
 | `github_list_labels` | 标签 | 列出仓库的标签 |
 | `github_create_label` | 标签 | 创建标签 |
+| `github_get_topics` | 话题 | 获取仓库话题列表 |
+| `github_update_topics` | 话题 | 整组替换仓库话题（写） |
+| `github_list_tags` | Git 标签 | 列出 git tag 及对应提交 SHA |
+| `github_list_releases` | 发布 | 列出仓库发布（最新在前） |
+| `github_get_latest_release` | 发布 | 获取最新已发布版本 |
+| `github_create_release` | 发布 | 创建发布（标签缺失时自动打标签） |
+| `github_update_release` | 发布 | 更新发布（标题/正文/draft/prerelease） |
 | `github_search_code` | 搜索 | 跨 GitHub 搜索代码 |
 | `github_search_issues` | 搜索 | 搜索 issue 与 PR |
 
@@ -65,7 +72,7 @@ dsh --profile demo
 
 安装后打开 http://127.0.0.1:3080 → **设置 → Plugins → 可配置**，会看到「GitHub 仓库管理」卡片，可以像其他插件一样直接操控：
 
-- **启用开关**：关闭时，20 个 GitHub 工具从模型工具面**即时注销**；打开即时恢复——**无需重启**。
+- **启用开关**：关闭时，27 个 GitHub 工具从模型工具面**即时注销**；打开即时恢复——**无需重启**。
 - **访问令牌**：写-only 密码框，输入即保存；存储值永不经网络回显，也从不显示在读取结果里。留空则回退到 `GH_TOKEN` / `GITHUB_TOKEN` 环境变量。
 - API / 站点根地址、请求超时、dry-run 开关：逐项修改、逐项保存；「已覆盖」标记显示哪些字段写进了用户层，「还原」让该项重新继承组合层。
 
@@ -96,7 +103,7 @@ CLI/无 Web 部署也可以在 profile 的 `cordis.patch.yml` 中直接覆盖默
 
 | 字段 | 默认值 | 说明 |
 | --- | --- | --- |
-| `enabled` | `true` | 主开关；关闭即从模型工具面注销全部 20 个工具 |
+| `enabled` | `true` | 主开关；关闭即从模型工具面注销全部 27 个工具 |
 | `token` | （无） | 个人访问令牌；设置界面写入为持久首选，留空则读 `GH_TOKEN` / `GITHUB_TOKEN` |
 | `baseUrl` | `https://api.github.com` | REST API 根（GitHub Enterprise 改这里） |
 | `webUrl` | `https://github.com` | 面向人类的链接根 |
@@ -113,6 +120,8 @@ CLI/无 Web 部署也可以在 profile 的 `cordis.patch.yml` 中直接覆盖默
 - PR：`Pull requests: write`（`github_create_pull`、`github_merge_pull`）
 - 文件：`Contents: write`（`github_write_file`、`github_delete_file`）
 - 标签：`Issues: write` 或 `Metadata: read` + 仓库管理员（`github_create_label`）
+- 话题：`Topics: write`（`github_update_topics`；读取仅需 `Metadata: read`）
+- 发布：`Contents: write`（`github_create_release`、`github_update_release`；列出 tags/releases 仅需 `Metadata: read`）
 
 ## 开发
 
