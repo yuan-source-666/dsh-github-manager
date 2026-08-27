@@ -4,7 +4,7 @@
  *
  * Registers a suite of tools against the DSH ctx.tools registry that let an
  * agent manage GitHub repositories, issues, pull requests, branches, files,
- * labels, and search - all through the GitHub REST API. All deployment-varying
+ * labels, topics, tags, releases, and search - all through the GitHub REST API. All deployment-varying
  * parameters (enabled, token, base URLs, timeout, dry-run) live in one settings
  * namespace, so the Web settings card pairs with this half by namespace and
  * edits them at runtime: the master switch unregisters the tools immediately.
@@ -21,6 +21,7 @@ import { registerRepoIssueTools } from './repo-issues.ts'
 import { registerPullTools } from './pulls.ts'
 import { registerBranchFileTools } from './branch-file.ts'
 import { registerLabelSearchTools } from './label-search.ts'
+import { registerTopicTagReleaseTools } from './topics-tags-releases.ts'
 
 export const name = 'dsh-github-manager'
 
@@ -104,8 +105,8 @@ export function apply(ctx: Context, config: Config): void {
 
   // The tool groups register through a capturing shim so every tool's exact
   // disposer lands in this list. The settings 'enabled' switch is then a live
-  // unregister/register cycle: the agent surface loses or gains all twenty
-  // tools without a restart, and the registrations stay scoped to this
+  // unregister/register cycle: the agent surface loses or gains all twenty-
+  // seven tools without a restart, and the registrations stay scoped to this
   // plugin's fiber for ordinary unload cleanup.
   const disposers: Array<() => void> = []
   const sink = {
@@ -150,6 +151,7 @@ export function apply(ctx: Context, config: Config): void {
         registerPullTools(sink, identity)
         registerBranchFileTools(sink, identity)
         registerLabelSearchTools(sink, identity)
+        registerTopicTagReleaseTools(sink, identity)
         registerPingTool(sink, identity)
         log.info('GitHub manager tools registered', { count: disposers.length })
       } else {
