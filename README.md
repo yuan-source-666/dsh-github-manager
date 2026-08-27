@@ -1,5 +1,7 @@
 # dsh-github-manager
 
+**中文** | [English](README_EN.md)
+
 一个 [DeepSeek Harness](https://github.com/deepseek-harness/deepseek-harness) 插件，为 AI agent 提供 **GitHub 仓库自动管理通道**。它注册一组工具，让 agent 通过 GitHub REST API 自动管理仓库、Issue、Pull Request、分支、文件、标签和搜索。
 
 > 本插件按 **DSH 社区插件规范** 分发：bundle（`dsh.bundle.patch`）+ Web 设置卡片（`dsh.client`），仓库已打上 `dsh-plugin` topic 供社区发现。
