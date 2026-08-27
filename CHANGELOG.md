@@ -2,6 +2,12 @@
 
 本项目遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与语义化版本。
 
+## [1.1.0] - 2026-08-28
+
+### Added
+- 新增「仓库话题 / Git 标签 / 发布」接口组，共 7 个工具：`github_get_topics`、`github_update_topics`（整组替换，按 GitHub 规则规范化去重）、`github_list_tags`、`github_list_releases`、`github_get_latest_release`、`github_create_release`（标签不存在时自动创建）、`github_update_release`。
+- 全部写侧工具遵循主开关与 dry-run 防护；工具面由 20 个扩展到 27 个，冒烟测试与已安装探针同步更新。
+
 ## [1.0.1] - 2026-08-27
 
 ### Fixed
