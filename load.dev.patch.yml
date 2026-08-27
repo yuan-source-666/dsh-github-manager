@@ -1,0 +1,15 @@
+# Dev overlay: load dsh-github-manager straight from TypeScript source,
+# no install / build step needed. Run from the deepseek-harness repo root:
+#
+#   pnpm dsh web --patch <PATH-TO>/dsh-github-manager/load.dev.patch.yml
+#
+# The name path below must be absolute and point at YOUR checkout of this
+# plugin (the patch layer does not change the loader's profile directory).
+# Replace every <PATH-TO> placeholder with your checkout's absolute directory
+# before using this file; the placeholder is intentional - this file is a
+# template, not a working config, and never carries machine-specific paths.
+# The token comes from GH_TOKEN / GITHUB_TOKEN in the environment, or add a
+# config: block like in cordis.patch.yml.
+- insert:
+    - id: dsh-github-manager
+      name: '<PATH-TO>/dsh-github-manager/src/index.ts'
